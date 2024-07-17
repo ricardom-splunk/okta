@@ -51,6 +51,8 @@ OKTA_INVALID_USER_MSG = "Please provide a valid user_id"
 OKTA_CLEAR_USER_SESSIONS_SUCC = "Successfully cleared user sessions"
 OKTA_SEND_PUSH_NOTIFICATION_ERR_MSG = "Please configure factor_type '{factor_type}' for the user '{user_id}'"
 
+OKTA_RESET_USER_FACTORS_SUCC = "Successfully reset factors for the user"
+
 # DO NOT MODIFY!
 # A fixed field used by Okta to the integration
 OKTA_APP_USER_AGENT_BASE = "SplunkPhantom/"

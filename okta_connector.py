@@ -1033,6 +1033,29 @@ class OktaConnector(BaseConnector):
 
         return action_result.set_status(phantom.APP_SUCCESS, f"Removed user '{user_name}' ({user_id}) from group '{group_name}' ({group_id})")
 
+    def _handle_reset_factors(self, param):
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        user_id = self._handle_py_ver_compat_for_input_str(param['user_id'])
+
+        # make rest call
+        ret_val, response = self._make_rest_call(f'/users/{user_id}/lifecycle/reset_factors', action_result, params=None, headers=None, method='post')
+
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
+
+        # Add the response into the data section
+        action_result.add_data(response)
+
+        # Return success, no need to set the message, only the status
+        # BaseConnector will create a textual message based off of the summary dictionary
+        return action_result.set_status(phantom.APP_SUCCESS, OKTA_RESET_USER_FACTORS_SUCC)
+        
+
+
     def handle_action(self, param):
 
         ret_val = phantom.APP_SUCCESS
@@ -1098,6 +1121,9 @@ class OktaConnector(BaseConnector):
 
         elif action_id == 'remove_group_user':
             ret_val = self._handle_remove_group_user(param)
+
+        elif action_id == 'reset_factors':
+            ret_val = self._handle_reset_factors(param)
 
         return ret_val
 

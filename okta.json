@@ -13,7 +13,7 @@
     "min_phantom_version": "5.2.0",
     "product_name": "Okta",
     "app_wizard_version": "1.0.0",
-    "app_version": "2.3.1",
+    "app_version": "2.3.2-fdse",
     "python_version": "3",
     "fips_compliant": true,
     "latest_tested_versions": [
@@ -4230,6 +4230,70 @@
                     "example_values": [
                         1
                     ]
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "reset factors",
+            "description": "Reset MFA",
+            "type": "generic",
+            "identifier": "reset_factors",
+            "verbose": "This operation resets all factors for the specified user. All MFA factor enrollments returned to the unenrolled state. The user's status remains ACTIVE. This link is present only if the user is currently enrolled in one or more MFA factors.",
+            "read_only": false,
+            "parameters": {
+                "user_id": {
+                    "description": "User id",
+                    "data_type": "string",
+                    "required": true,
+                    "contains": [
+                        "okta user id"
+                    ],
+                    "primary": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ],
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.user_id",
+                    "data_type": "string",
+                    "contains": [
+                        "okta user id"
+                    ],
+                    "column_order": 0,
+                    "column_name": "User ID"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "example_values": [
+                        "Successfully reset MFA"
+                    ],
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "example_values": [
+                        1
+                    ],
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "example_values": [
+                        1
+                    ],
+                    "data_type": "numeric"
                 }
             ],
             "render": {
